@@ -3,11 +3,14 @@ import inspect
 import itertools
 import unittest
 
-def filterInputRange(ranges):    
+'''
+    Filter Input Range From File Input.py
+'''
+def filterInputRange(fileInput):    
     region = []
     result = []
-    ranges = ranges.strip()
-    listRange = ranges.split('\n')
+    fileInput = fileInput.strip()
+    listRange = fileInput.split('\n')
     for i in listRange:
         j = i.split(']')        
         for k in j:
@@ -20,6 +23,9 @@ def filterInputRange(ranges):
         region = []
     return result
 
+'''
+    Validate Input Range; Return 1 If Input Range is Appropriate, 0 if Input Range is Unsuitable  
+'''
 def validateInput(a):    
     for i in a:
         i.sort()
@@ -33,7 +39,10 @@ def validateInput(a):
                 l=j[1]
     return 1
 
-def generateTestRange(a):
+'''
+    Generate List Argument For Test Case
+'''
+def generateTestArgument(a):
     testcase = []
     k = []
     for i in a:
@@ -43,6 +52,9 @@ def generateTestRange(a):
         testcase = []
     return list(itertools.product(*k))
 
+'''
+    Generate Dynamic Test Case 
+'''
 def test_generator(x):
     def test(self):
         self.assertEqual(input.main(*x),'','')
@@ -55,7 +67,7 @@ if __name__ == "__main__":
     k = []
     a = filterInputRange(inspect.getdoc(input.main))
     if validateInput(a):
-        k = generateTestRange(a)
+        k = generateTestArgument(a)
     else:
         raise Exception("Wrong Input")
     i = 0
